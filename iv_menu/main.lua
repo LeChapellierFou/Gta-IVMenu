@@ -97,6 +97,7 @@ function IVMenu_startup(menuid)
     
     IVMenu.ItemCore.menu_len = 0
     IVMenu.ItemCore.footer = ""
+	item_select = 1
     scroll_pos_y = menu_posY
     const_scroll_pos_y = menu_posY
     Events.Call("IVMenu_Setup_"..menuid, {})
