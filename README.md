@@ -18,3 +18,7 @@ Use this menu on Ressource folder (lua-gamemode)
 - Submenu
 - mouse controller
 - use in any script
+
+# Events Control menu
+- Events.Call("Open_IVMenu", {menuid})
+- Events.Call("Close_IVMenu", {menuid})
