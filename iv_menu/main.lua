@@ -14,6 +14,7 @@ local typeM = {}
 local InError = false
 local isOpen = false
 local MenuID = 0
+local GameTimer0 = 0
 local ItemType = { -- tables type of items
     SubI = 1,
     ValI = 2,
@@ -145,10 +146,8 @@ function IVMenu_shutdown()
         Game.RemoveTxd(NetworkDict)
         NetworkDict = nil
     end
-    
-    Game.SetCamActive(Game.GetGameCam(), true)
-    Game.SetPlayerControl(Game.GetPlayerId(), true)
-    Game.SetGameCameraControlsActive(true)
+	
+    GameTimer0 = Game.GetGameTimer();
 end
 
 Events.Subscribe("Open_IVMenu", function(menuid)
@@ -156,6 +155,15 @@ Events.Subscribe("Open_IVMenu", function(menuid)
         if(menuid > 0) then 
             MenuID = menuid 
             IVMenu_startup(MenuID)
+        end
+    end
+end, true)
+
+Events.Subscribe("Close_IVMenu", function(menuid)
+   
+    if (isOpen) then
+        if(menuid > 0) then
+            IVMenu_shutdown()
         end
     end
 end, true)
@@ -364,6 +372,16 @@ Events.Subscribe("scriptInit", function()
                         local texture = Game.GetTexture(ComputerDict,"mousepointer")
                         Game.DrawSprite(texture, mx, my,0.04, 0.06,0,255,255,255,255)
                     end
+                end
+            end
+			
+			if (GameTimer0 ~= 0) then 
+                local GameTimer1 = Game.GetGameTimer();
+                if ((GameTimer1 - GameTimer0) > 100) then 
+                    Game.SetCamActive(Game.GetGameCam(), true)
+                    Game.SetPlayerControl(Game.GetPlayerId(), true)
+					Game.SetGameCameraControlsActive(true)
+                    GameTimer0 = 0
                 end
             end
 		end
