@@ -381,7 +381,7 @@ Events.Subscribe("scriptInit", function()
                     Game.SetCamActive(Game.GetGameCam(), true)
                     Game.SetPlayerControl(Game.GetPlayerId(), true)
 					Game.SetGameCameraControlsActive(true)
-                    GameTimer0 = 0
+                    TimerA = 0
                 end
             end
 		end
