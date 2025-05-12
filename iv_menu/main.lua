@@ -14,7 +14,7 @@ local typeM = {}
 local InError = false
 local isOpen = false
 local MenuID = 0
-local GameTimer0 = 0
+local TimerA = 0
 local ItemType = { -- tables type of items
     SubI = 1,
     ValI = 2,
@@ -147,7 +147,7 @@ function IVMenu_shutdown()
         NetworkDict = nil
     end
 	
-    GameTimer0 = Game.GetGameTimer();
+    TimerA = Game.GetGameTimer();
 end
 
 Events.Subscribe("Open_IVMenu", function(menuid)
@@ -375,9 +375,9 @@ Events.Subscribe("scriptInit", function()
                 end
             end
 			
-			if (GameTimer0 ~= 0) then 
-                local GameTimer1 = Game.GetGameTimer();
-                if ((GameTimer1 - GameTimer0) > 100) then 
+			if (TimerA ~= 0) then 
+                local TimerB = Game.GetGameTimer();
+                if ((TimerB - TimerA) > 100) then 
                     Game.SetCamActive(Game.GetGameCam(), true)
                     Game.SetPlayerControl(Game.GetPlayerId(), true)
 					Game.SetGameCameraControlsActive(true)
