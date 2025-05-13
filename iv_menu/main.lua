@@ -408,8 +408,11 @@ Events.Subscribe("scriptInit", function()
 				if(mx * sx > sx - 1 or my * sy > sy - 1) then
                 else
                     if(ComputerDict ~= nil) then 
+						local scaleX = 0.04 * (sx / 1920) -- default 1080p
+						local scaleY = 0.06 * (sy / 1080)
+						
                         local texture = Game.GetTexture(ComputerDict,"mousepointer")
-                        Game.DrawSprite(texture, mx, my,0.04, 0.06,0,255,255,255,255)
+                        Game.DrawSprite(texture, mx, my, scaleX, scaleY,0,255,255,255,255)
                     end
                 end
             end
