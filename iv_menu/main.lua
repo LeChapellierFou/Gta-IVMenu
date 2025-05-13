@@ -2,11 +2,13 @@
 --              IV Menu exemple By LeChapellierFou                    --
 --                  Created for HappinessMP                           -- 
 --               Check My Github for more informations                --
---                        20/02/2025                                  --
+--                        13/05/2025                                  --
 ------------------------------------------------------------------------
 -- Variables menu
-local menu_posX = 0.7430
-local menu_posY = 0.1660
+local menu_posX = 0
+local menu_posY = 0
+local offsetToCenterX = 0.1950
+local offsetToCenterY = -0.2640
 local item_select = 1
 local item_name = {}
 local Submenu = {}
@@ -94,7 +96,34 @@ IVMenu = {
 --  Functions menu      --
 --------------------------
 
+function Move_menu()
+
+	Game.SetTextFont(0)
+	Game.SetTextScale(0.35, 0.35)
+	Game.SetTextColour(255, 0, 0, 255)
+	Game.DisplayTextWithFloat(0.5, 0.80, "NUMBR", tonumber(offsetToCenterX), 4)
+
+	Game.SetTextFont(0)
+	Game.SetTextScale(0.35, 0.35)
+	Game.SetTextColour(255, 0, 0, 255)
+	Game.DisplayTextWithFloat(0.5, 0.85, "NUMBR", tonumber(offsetToCenterY), 4)
+
+	if Game.IsGameKeyboardKeyPressed(203) then --left
+		offsetToCenterX = offsetToCenterX - 0.001
+	elseif Game.IsGameKeyboardKeyPressed(205) then -- right
+		offsetToCenterX = offsetToCenterX + 0.001
+	elseif Game.IsGameKeyboardKeyPressed(200) then -- up
+		offsetToCenterY = offsetToCenterY - 0.001
+	elseif Game.IsGameKeyboardKeyPressed(208) then -- down
+		offsetToCenterY = offsetToCenterY + 0.001
+	end
+end
+
 function IVMenu_startup(menuid)
+
+	local sx, sy = Game.GetScreenResolution()
+	menu_posX = (sx / 2) / sx + offsetToCenterX
+	menu_posY = (sy / 2) / sy + offsetToCenterY
     
     IVMenu.ItemCore.menu_len = 0
     IVMenu.ItemCore.footer = ""
@@ -173,8 +202,15 @@ end, true)
 --------------------------
 
 function IVMenuDraw(items, title, title2)
-    -- Help.lua
     local correction_x
+	--[[ Add this for move menu, use only offsetToCenterX & offsetToCenterY
+		Move_menu()
+		local sx, sy = Game.GetScreenResolution()
+		menu_posX = (sx / 2) / sx + offsetToCenterX
+		menu_posY = (sy / 2) / sy + offsetToCenterY
+		scroll_pos_y = menu_posY
+		const_scroll_pos_y = menu_posY
+	]]
 
     -- titre
     Game.SetTextScale(0.200000,  0.300000)
@@ -366,7 +402,10 @@ Events.Subscribe("scriptInit", function()
                 
                 -- Display mouse on screen
                 local mx, my = Game.GetMousePosition()
-                if(mx>0.99 or my>0.99) then
+                local sx, sy = Game.GetScreenResolution()
+
+				-- Vérifie si la souris est en dehors de l'écran (version adaptée à la résolution)
+				if(mx * sx > sx - 1 or my * sy > sy - 1) then
                 else
                     if(ComputerDict ~= nil) then 
                         local texture = Game.GetTexture(ComputerDict,"mousepointer")
