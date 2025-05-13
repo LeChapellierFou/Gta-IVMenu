@@ -154,7 +154,7 @@ function IVMenu_shutdown()
         if(Submenu[i] ~= nil) then 
             Submenu[i] = nil
         end
-        if(item_name[i] ~= nil) then 
+        if(typeM[i] ~= nil) then 
             typeM[i] = nil
         end
     end
