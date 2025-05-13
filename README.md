@@ -15,9 +15,9 @@ Use this menu on Ressource folder (lua-gamemode)
 - F5 Open menu
 - Generate Random id of menu, you can call menu several script
 - Infinite Scrolling
-- Submenu
-- mouse controller
-- use in any script
+- Submenu, boolean, int/float
+- Mouse controller
+- Display with screen resolution
 
 # Events Control menu
 - Events.Call("Open_IVMenu", {menuid})
