@@ -14,7 +14,6 @@ local item_name = {}
 local Submenu = {}
 local typeM = {}
 local InError = false
-local isOpen = false
 local MenuID = 0
 local TimerA = 0
 local ItemType = { -- tables type of items
@@ -39,6 +38,7 @@ local scrolling = true -- lock scrolling items at value
 
 IVMenu = {
     ItemCore = {
+        isOpen = false,
         last_selected = {},
         menu_level = 0,
         menu_len = 0,
@@ -137,14 +137,14 @@ function IVMenu_startup(menuid)
     if(NetworkDict == nil) then 
         NetworkDict = Game.LoadTxd("network")
     end
-    isOpen = true
+    IVMenu.ItemCore.isOpen = true
     Game.SetCamActive(Game.GetGameCam(), false)
     Game.SetPlayerControl(Game.GetPlayerId(), false)
     Game.SetGameCameraControlsActive(false)
 end
 
 function IVMenu_shutdown()
-    isOpen = false
+    IVMenu.ItemCore.isOpen = false
     MenuID = 0
 
     for i=1, IVMenu.ItemCore.menu_len, 1 do 
@@ -180,7 +180,7 @@ function IVMenu_shutdown()
 end
 
 Events.Subscribe("Open_IVMenu", function(menuid)
-    if (not isOpen) then
+    if (not IVMenu.ItemCore.isOpen) then
         if(menuid > 0) then 
             MenuID = menuid 
             IVMenu_startup(MenuID)
@@ -188,12 +188,10 @@ Events.Subscribe("Open_IVMenu", function(menuid)
     end
 end, true)
 
-Events.Subscribe("Close_IVMenu", function(menuid)
+Events.Subscribe("Close_IVMenu", function()
    
-    if (isOpen) then
-        if(menuid > 0) then
-            IVMenu_shutdown()
-        end
+    if (IVMenu.ItemCore.isOpen) then
+        IVMenu_shutdown()
     end
 end, true)
 
@@ -396,7 +394,7 @@ Events.Subscribe("scriptInit", function()
 		while true do
 			Thread.Pause(0)
 
-            if (isOpen and not Game.IsPauseMenuActive()) then
+            if (IVMenu.ItemCore.isOpen and not Game.IsPauseMenuActive()) then
                 
                 IVMenuDraw(item_name, IVMenu.ItemCore.title, IVMenu.ItemCore.footer) 
                 
