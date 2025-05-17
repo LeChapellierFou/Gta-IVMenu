@@ -18,7 +18,3 @@ Use this menu on Ressource folder (lua-gamemode)
 - Submenu, boolean, int/float
 - Mouse controller
 - Display with screen resolution
-
-# Events Control menu
-- Events.Call("Open_IVMenu", {menuid})
-- Events.Call("Close_IVMenu", {menuid})
