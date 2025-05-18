@@ -9,9 +9,9 @@
 function Print(text, time)
 	Game.ClearPrints()
     if (time == nil) then 
-	    Game.PrintStringWithLiteralStringNow("STRING", text, 1000, true)
+	    Game.PrintStringWithLiteralStringNow("STRING", text, 1000, 1)
     else
-	    Game.PrintStringWithLiteralStringNow("STRING", text, time, true)
+	    Game.PrintStringWithLiteralStringNow("STRING", text, time, 1)
     end
 end
 
