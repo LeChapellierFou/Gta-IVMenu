@@ -44,7 +44,11 @@ IVMenu = {
         menu_len = 0,
         footer = "",
         title = "",
-        value = {}
+        value = {},
+        params1 = {},
+        params2 = {},
+        params3 = {},
+        params4 = {}
     },
 
     ItemType = {
@@ -80,6 +84,29 @@ IVMenu = {
             Submenu[IVMenu.ItemCore.menu_len] = true
             IVMenu.ItemCore.value[IVMenu.ItemCore.menu_len] = act
             typeM[IVMenu.ItemCore.menu_len] = 3 
+        end,
+
+	add_item_params = function(text, p1, p2, p3, p4) 
+            IVMenu.ItemCore.menu_len = IVMenu.ItemCore.menu_len + 1
+            item_name[IVMenu.ItemCore.menu_len] = text
+            Submenu[IVMenu.ItemCore.menu_len] = true
+            typeM[IVMenu.ItemCore.menu_len] = 0
+
+            if(p1 ~= nil) then 
+                IVMenu.ItemCore.params1[IVMenu.ItemCore.menu_len] = p1
+            end
+
+            if(p2 ~= nil) then 
+                IVMenu.ItemCore.params2[IVMenu.ItemCore.menu_len] = p2
+            end
+
+            if(p3 ~= nil) then 
+                IVMenu.ItemCore.params3[IVMenu.ItemCore.menu_len] = p3
+            end
+
+            if(p4 ~= nil) then 
+                IVMenu.ItemCore.params4[IVMenu.ItemCore.menu_len] = p4
+            end
         end,
 
         -- Display item Title
