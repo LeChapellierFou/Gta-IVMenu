@@ -259,7 +259,6 @@ function IVMenuDraw(items, title, title2)
                 if(Game.IsMouseButtonJustPressed(1)) then
                     if Submenu[i] then
                         Events.Call("IVMenu_function_"..MenuID, {i})
-                        Events.Call("IVMenu_Setup_"..MenuID, {})
                     else
                         -- next level
                         IVMenu.ItemCore.last_selected[IVMenu.ItemCore.menu_level] = i
